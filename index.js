@@ -11,8 +11,8 @@ function checkDigest(filename) {
         prov: 'cryptojs',
     });
 
-    const dataString = fileContent.toString('binary');
-    messageDigest.updateString(dataString);
+    const dataHex = jsrsasign.rstrtohex(fileContent.toString('binary'));
+    messageDigest.updateHex(dataHex);
     const digest = messageDigest.digest();
 
     const opensslDigest = execSync(`openssl dgst -sha256 ${filepath}`).toString().trim().replace(`SHA256(${filepath})= `, '');
